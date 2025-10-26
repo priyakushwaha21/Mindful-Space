@@ -1,9 +1,35 @@
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, BookOpen, MessageCircle, TrendingUp, Sparkles } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Heart, BookOpen, MessageCircle, TrendingUp, Sparkles, LogOut } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 const Dashboard = () => {
+  const { user, loading, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect to auth if not logged in
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate("/auth");
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center">
+          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4 animate-pulse">
+            <Heart className="w-8 h-8 text-primary-foreground" />
+          </div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) return null;
   const moodData = [
     { day: "Mon", mood: "😊", score: 8 },
     { day: "Tue", mood: "😌", score: 7 },
@@ -41,13 +67,19 @@ const Dashboard = () => {
                 Chat
               </Button>
             </Link>
+            <Button variant="ghost" size="sm" onClick={signOut}>
+              <LogOut className="w-4 h-4 mr-2" />
+              Logout
+            </Button>
           </div>
         </div>
       </nav>
 
       <div className="container mx-auto px-6 py-12">
         <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-2">Welcome back</h1>
+          <h1 className="text-4xl font-bold mb-2">
+            Welcome back, {user.user_metadata?.full_name || "Friend"}
+          </h1>
           <p className="text-muted-foreground text-lg">How are you feeling today?</p>
         </div>
 

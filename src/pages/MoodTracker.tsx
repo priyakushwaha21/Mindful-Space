@@ -1,16 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
 import { Heart, ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
 
 const MoodTracker = () => {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
   const [selectedMood, setSelectedMood] = useState<string>("");
   const [intensity, setIntensity] = useState([5]);
   const [notes, setNotes] = useState("");
+
+  // Redirect to auth if not logged in
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate("/auth");
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) return null;
+  if (!user) return null;
 
   const moods = [
     { emoji: "😊", label: "Happy", color: "from-yellow-400 to-orange-400" },

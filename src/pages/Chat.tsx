@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { MessageCircle, ArrowLeft, Send, Sparkles } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 type Message = {
   role: "user" | "assistant";
@@ -11,6 +12,8 @@ type Message = {
 };
 
 const Chat = () => {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
@@ -19,6 +22,16 @@ const Chat = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  // Redirect to auth if not logged in
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate("/auth");
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) return null;
+  if (!user) return null;
 
   const handleSend = async () => {
     if (!input.trim()) return;
