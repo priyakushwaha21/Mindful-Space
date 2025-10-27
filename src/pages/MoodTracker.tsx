@@ -43,6 +43,11 @@ const MoodTracker = () => {
       toast.error("Error saving mood: " + error.message);
     } else {
       toast.success("Mood logged successfully!");
+      
+      // Update gamification stats
+      const { updateUserStats } = await import("@/utils/gamification");
+      await updateUserStats(user!.id);
+      
       setSelectedMood("");
       setIntensity([5]);
       setNotes("");

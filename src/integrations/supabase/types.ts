@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      achievements: {
+        Row: {
+          achievement_description: string | null
+          achievement_name: string
+          achievement_type: string
+          earned_at: string
+          icon: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          achievement_description?: string | null
+          achievement_name: string
+          achievement_type: string
+          earned_at?: string
+          icon?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          achievement_description?: string | null
+          achievement_name?: string
+          achievement_type?: string
+          earned_at?: string
+          icon?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       journal_entries: {
         Row: {
           content: string
@@ -67,6 +97,87 @@ export type Database = {
           mood?: string
           mood_score?: number
           note?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_stats: {
+        Row: {
+          created_at: string
+          current_streak: number
+          growth_level: number
+          growth_points: number
+          id: string
+          last_activity_date: string | null
+          longest_streak: number
+          total_journal_entries: number
+          total_mood_logs: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_streak?: number
+          growth_level?: number
+          growth_points?: number
+          id?: string
+          last_activity_date?: string | null
+          longest_streak?: number
+          total_journal_entries?: number
+          total_mood_logs?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          current_streak?: number
+          growth_level?: number
+          growth_points?: number
+          id?: string
+          last_activity_date?: string | null
+          longest_streak?: number
+          total_journal_entries?: number
+          total_mood_logs?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wellness_goals: {
+        Row: {
+          completed: boolean
+          created_at: string
+          current_value: number
+          description: string | null
+          goal_type: string
+          id: string
+          target_value: number
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          created_at?: string
+          current_value?: number
+          description?: string | null
+          goal_type: string
+          id?: string
+          target_value: number
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          created_at?: string
+          current_value?: number
+          description?: string | null
+          goal_type?: string
+          id?: string
+          target_value?: number
+          title?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: []

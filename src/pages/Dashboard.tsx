@@ -226,9 +226,11 @@ const Dashboard = () => {
               <CardDescription>Calm your mind in 5 minutes</CardDescription>
             </CardHeader>
             <CardContent>
-              <Button variant="calm" className="w-full">
-                Start Exercise
-              </Button>
+              <Link to="/wellness">
+                <Button variant="calm" className="w-full">
+                  Start Exercise
+                </Button>
+              </Link>
             </CardContent>
           </Card>
 
@@ -241,9 +243,11 @@ const Dashboard = () => {
               <CardDescription>Practice being present</CardDescription>
             </CardHeader>
             <CardContent>
-              <Button variant="calm" className="w-full">
-                Begin Session
-              </Button>
+              <Link to="/wellness">
+                <Button variant="calm" className="w-full">
+                  Begin Session
+                </Button>
+              </Link>
             </CardContent>
           </Card>
 
@@ -256,11 +260,32 @@ const Dashboard = () => {
               <CardDescription>Set and track your goals</CardDescription>
             </CardHeader>
             <CardContent>
-              <Button variant="calm" className="w-full">
-                Manage Goals
-              </Button>
+              <Link to="/wellness">
+                <Button variant="calm" className="w-full">
+                  Manage Goals
+                </Button>
+              </Link>
             </CardContent>
           </Card>
+        </div>
+
+        <div className="mt-6">
+          <Link to="/growth">
+            <Card className="shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-glow)] transition-all duration-300 cursor-pointer bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="text-4xl">🌱</div>
+                    <div>
+                      <h3 className="text-xl font-bold">View Your Growth Tree & Achievements</h3>
+                      <p className="text-sm text-muted-foreground">Track your wellness journey and unlock rewards</p>
+                    </div>
+                  </div>
+                  <Sparkles className="w-6 h-6 text-primary" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
         </div>
       </div>
     </div>

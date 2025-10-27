@@ -10,6 +10,8 @@ import MoodTracker from "./pages/MoodTracker";
 import Journal from "./pages/Journal";
 import Chat from "./pages/Chat";
 import Analytics from "./pages/Analytics";
+import Wellness from "./pages/Wellness";
+import Gamification from "./pages/Gamification";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +30,8 @@ const App = () => (
           <Route path="/journal" element={<Journal />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/analytics" element={<Analytics />} />
+          <Route path="/wellness" element={<Wellness />} />
+          <Route path="/growth" element={<Gamification />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -40,6 +40,11 @@ const Journal = () => {
       toast.error("Error saving journal: " + error.message);
     } else {
       toast.success("Journal entry saved!");
+      
+      // Update gamification stats
+      const { updateUserStats } = await import("@/utils/gamification");
+      await updateUserStats(user!.id);
+      
       setTitle("");
       setContent("");
       setTimeout(() => navigate("/dashboard"), 1500);
