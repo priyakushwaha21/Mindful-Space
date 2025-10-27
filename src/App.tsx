@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import MoodTracker from "./pages/MoodTracker";
 import Journal from "./pages/Journal";
 import Chat from "./pages/Chat";
+import Analytics from "./pages/Analytics";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/mood" element={<MoodTracker />} />
           <Route path="/journal" element={<Journal />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/analytics" element={<Analytics />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

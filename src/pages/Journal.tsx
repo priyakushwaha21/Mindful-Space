@@ -7,22 +7,44 @@ import { BookOpen, ArrowLeft, Sparkles } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 
 const Journal = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
-  // Redirect to auth if not logged in
   useEffect(() => {
     if (!loading && !user) {
       navigate("/auth");
     }
   }, [user, loading, navigate]);
 
-  if (loading) return null;
-  if (!user) return null;
+  const handleSaveJournal = async () => {
+    if (!content.trim()) {
+      toast.error("Please write something before saving");
+      return;
+    }
+
+    setIsSaving(true);
+    const { error } = await supabase.from("journal_entries").insert({
+      user_id: user?.id,
+      title: title.trim() || "Untitled",
+      content: content.trim(),
+    });
+
+    setIsSaving(false);
+    if (error) {
+      toast.error("Error saving journal: " + error.message);
+    } else {
+      toast.success("Journal entry saved!");
+      setTitle("");
+      setContent("");
+      setTimeout(() => navigate("/dashboard"), 1500);
+    }
+  };
 
   const prompts = [
     "What am I grateful for today?",
@@ -30,15 +52,6 @@ const Journal = () => {
     "What made me smile today?",
     "What do I need to let go of?",
   ];
-
-  const handleSave = () => {
-    if (!content.trim()) {
-      toast.error("Please write something before saving");
-      return;
-    }
-    toast.success("Journal entry saved!");
-    // Will save to database once Lovable Cloud is connected
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -104,8 +117,8 @@ const Journal = () => {
                 </div>
 
                 <div className="flex gap-4">
-                  <Button onClick={handleSave} className="flex-1" size="lg">
-                    Save Entry
+                  <Button onClick={handleSaveJournal} className="flex-1" size="lg" disabled={isSaving}>
+                    {isSaving ? "Saving..." : "Save Entry"}
                   </Button>
                   <Link to="/dashboard" className="flex-1">
                     <Button variant="outline" className="w-full" size="lg">

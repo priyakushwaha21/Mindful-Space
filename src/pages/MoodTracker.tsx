@@ -7,6 +7,7 @@ import { Heart, ArrowLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 
 const MoodTracker = () => {
   const { user, loading } = useAuth();
@@ -14,6 +15,7 @@ const MoodTracker = () => {
   const [selectedMood, setSelectedMood] = useState<string>("");
   const [intensity, setIntensity] = useState([5]);
   const [notes, setNotes] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
   // Redirect to auth if not logged in
   useEffect(() => {
@@ -22,8 +24,31 @@ const MoodTracker = () => {
     }
   }, [user, loading, navigate]);
 
-  if (loading) return null;
-  if (!user) return null;
+  const handleSaveMood = async () => {
+    if (!selectedMood) {
+      toast.error("Please select a mood");
+      return;
+    }
+
+    setIsSaving(true);
+    const { error } = await supabase.from("mood_logs").insert({
+      user_id: user?.id,
+      mood: selectedMood,
+      mood_score: intensity[0],
+      note: notes || null,
+    });
+
+    setIsSaving(false);
+    if (error) {
+      toast.error("Error saving mood: " + error.message);
+    } else {
+      toast.success("Mood logged successfully!");
+      setSelectedMood("");
+      setIntensity([5]);
+      setNotes("");
+      setTimeout(() => navigate("/dashboard"), 1500);
+    }
+  };
 
   const moods = [
     { emoji: "😊", label: "Happy", color: "from-yellow-400 to-orange-400" },
@@ -33,15 +58,6 @@ const MoodTracker = () => {
     { emoji: "😡", label: "Angry", color: "from-red-400 to-orange-500" },
     { emoji: "😴", label: "Tired", color: "from-gray-400 to-gray-500" },
   ];
-
-  const handleSave = () => {
-    if (!selectedMood) {
-      toast.error("Please select a mood");
-      return;
-    }
-    toast.success("Mood logged successfully!");
-    // Will save to database once Lovable Cloud is connected
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -118,8 +134,8 @@ const MoodTracker = () => {
             </div>
 
             <div className="flex gap-4">
-              <Button onClick={handleSave} className="flex-1" size="lg">
-                Save Entry
+              <Button onClick={handleSaveMood} className="flex-1" size="lg" disabled={isSaving}>
+                {isSaving ? "Saving..." : "Save Entry"}
               </Button>
               <Link to="/dashboard" className="flex-1">
                 <Button variant="outline" className="w-full" size="lg">
