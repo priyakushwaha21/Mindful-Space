@@ -11,6 +11,7 @@ const Analytics = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [moodData, setMoodData] = useState<any[]>([]);
+  const [moodDistribution, setMoodDistribution] = useState<any[]>([]);
   const [journalCount, setJournalCount] = useState(0);
   const [avgMoodScore, setAvgMoodScore] = useState(0);
 
@@ -49,6 +50,23 @@ const Analytics = () => {
       
       const avg = moods.reduce((acc, m) => acc + m.mood_score, 0) / moods.length;
       setAvgMoodScore(Math.round(avg * 10) / 10);
+
+      // Calculate mood distribution
+      const moodCounts: { [key: string]: number } = {};
+      moods.forEach((m) => {
+        const moodName = m.mood || "Unknown";
+        moodCounts[moodName] = (moodCounts[moodName] || 0) + 1;
+      });
+
+      const distribution = Object.entries(moodCounts)
+        .map(([mood, count]) => ({
+          mood,
+          count,
+          percentage: Math.round((count / moods.length) * 100),
+        }))
+        .sort((a, b) => b.count - a.count);
+
+      setMoodDistribution(distribution);
     }
 
     setJournalCount(count || 0);
@@ -137,16 +155,29 @@ const Analytics = () => {
               <CardDescription>Most frequent emotional states</CardDescription>
             </CardHeader>
             <CardContent>
-              {moodData.length > 0 ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={moodData}>
-                    <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                    <XAxis dataKey="date" className="text-xs" />
-                    <YAxis domain={[0, 10]} className="text-xs" />
-                    <Tooltip />
-                    <Bar dataKey="score" fill="hsl(var(--secondary))" />
-                  </BarChart>
-                </ResponsiveContainer>
+              {moodDistribution.length > 0 ? (
+                <div className="space-y-4">
+                  {moodDistribution.map((item, index) => (
+                    <div key={index} className="space-y-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="font-medium capitalize">{item.mood}</span>
+                        <span className="text-muted-foreground">
+                          {item.count} {item.count === 1 ? 'entry' : 'entries'} ({item.percentage}%)
+                        </span>
+                      </div>
+                      <div className="relative h-8 bg-muted rounded-full overflow-hidden">
+                        <div 
+                          className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-primary/60 rounded-full transition-all duration-500 flex items-center justify-end pr-3"
+                          style={{ width: `${item.percentage}%` }}
+                        >
+                          <span className="text-xs font-semibold text-primary-foreground">
+                            {item.percentage}%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               ) : (
                 <p className="text-center text-muted-foreground py-12">No mood data yet. Start tracking your moods!</p>
               )}
