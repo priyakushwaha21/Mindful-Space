@@ -12,6 +12,9 @@ import Chat from "./pages/Chat";
 import Analytics from "./pages/Analytics";
 import Wellness from "./pages/Wellness";
 import Gamification from "./pages/Gamification";
+import BreathingExercisePage from "./pages/BreathingExercisePage";
+import MindfulnessPage from "./pages/MindfulnessPage";
+import WellnessGoalsPage from "./pages/WellnessGoalsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +34,9 @@ const App = () => (
           <Route path="/chat" element={<Chat />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/wellness" element={<Wellness />} />
+          <Route path="/breathing-exercise" element={<BreathingExercisePage />} />
+          <Route path="/mindfulness" element={<MindfulnessPage />} />
+          <Route path="/wellness-goals" element={<WellnessGoalsPage />} />
           <Route path="/growth" element={<Gamification />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

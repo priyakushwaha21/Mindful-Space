@@ -23,6 +23,9 @@ All colors MUST be HSL.
 
     --secondary: 180 50% 70%;
     --secondary-foreground: 270 15% 20%;
+    
+    --navbar: 200 85% 88%;
+    --navbar-foreground: 210 100% 25%;
 
     --muted: 270 20% 92%;
     --muted-foreground: 270 10% 50%;
@@ -65,6 +68,9 @@ All colors MUST be HSL.
 
     --secondary: 180 40% 60%;
     --secondary-foreground: 270 30% 8%;
+    
+    --navbar: 200 60% 25%;
+    --navbar-foreground: 200 85% 88%;
 
     --muted: 270 20% 18%;
     --muted-foreground: 270 10% 65%;

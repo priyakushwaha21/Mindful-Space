@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { MessageCircle, ArrowLeft, Send, Sparkles } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Send, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import Navbar from "@/components/Navbar";
 
 type Message = {
   role: "user" | "assistant";
@@ -119,23 +120,10 @@ const Chat = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to="/dashboard" className="flex items-center gap-2">
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-medium">Back to Dashboard</span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center">
-              <MessageCircle className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold">AI Companion</span>
-          </div>
-        </div>
-      </nav>
-
-      <div className="container mx-auto px-6 py-8 max-w-4xl">
-        <Card className="h-[calc(100vh-200px)] flex flex-col shadow-[var(--shadow-glow)]">
+      <Navbar />
+      
+      <div className="pt-20 sm:pt-24 container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-5xl">
+        <Card className="h-[calc(100vh-180px)] sm:h-[calc(100vh-200px)] flex flex-col shadow-[var(--shadow-glow)]">
           <CardHeader className="border-b border-border">
             <CardTitle className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary" />
@@ -143,7 +131,7 @@ const Chat = () => {
             </CardTitle>
           </CardHeader>
           
-          <CardContent className="flex-1 overflow-y-auto p-6 space-y-4">
+          <CardContent className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -173,7 +161,7 @@ const Chat = () => {
             )}
           </CardContent>
 
-          <div className="p-6 border-t border-border">
+          <div className="p-4 sm:p-6 border-t border-border">
             <div className="flex gap-2">
               <Input
                 value={input}

@@ -3,11 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { BookOpen, ArrowLeft, Sparkles } from "lucide-react";
+import { BookOpen, Sparkles } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
+import Navbar from "@/components/Navbar";
 
 const Journal = () => {
   const { user, loading } = useAuth();
@@ -60,28 +61,15 @@ const Journal = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to="/dashboard" className="flex items-center gap-2">
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-medium">Back to Dashboard</span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center">
-              <BookOpen className="w-5 h-5 text-secondary-foreground" />
-            </div>
-            <span className="text-xl font-bold">MindfulSpace</span>
-          </div>
-        </div>
-      </nav>
-
-      <div className="container mx-auto px-6 py-12 max-w-4xl">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Journal</h1>
-          <p className="text-muted-foreground text-lg">Express your thoughts freely</p>
+      <Navbar />
+      
+      <div className="pt-20 sm:pt-24 container mx-auto px-4 sm:px-6 py-8 sm:py-12 max-w-6xl">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2">Journal</h1>
+          <p className="text-muted-foreground text-base sm:text-lg">Express your thoughts freely</p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid lg:grid-cols-3 gap-4 sm:gap-6">
           <div className="lg:col-span-2">
             <Card className="shadow-[var(--shadow-glow)]">
               <CardHeader>

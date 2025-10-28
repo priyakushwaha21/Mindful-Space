@@ -2,12 +2,15 @@ import { Button } from "@/components/ui/button";
 import { Heart, MessageCircle, BookOpen, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-bg.jpg";
+import Navbar from "@/components/Navbar";
 
 const Landing = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Navbar />
+      
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-20">
         <div 
           className="absolute inset-0 opacity-50"
           style={{

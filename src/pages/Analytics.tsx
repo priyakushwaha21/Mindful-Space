@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { ArrowLeft, TrendingUp, Calendar, Heart, BookOpen } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { TrendingUp, Calendar, Heart, BookOpen } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
+import Navbar from "@/components/Navbar";
 
 const Analytics = () => {
   const { user, loading } = useAuth();
@@ -58,28 +59,15 @@ const Analytics = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to="/dashboard" className="flex items-center gap-2">
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-medium">Back to Dashboard</span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <TrendingUp className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold">Wellness Analytics</span>
-          </div>
-        </div>
-      </nav>
-
-      <div className="container mx-auto px-6 py-12">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Your Wellness Journey</h1>
-          <p className="text-muted-foreground text-lg">Track your progress and insights</p>
+      <Navbar />
+      
+      <div className="pt-20 sm:pt-24 container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2">Your Wellness Journey</h1>
+          <p className="text-muted-foreground text-base sm:text-lg">Track your progress and insights</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <Card className="shadow-[var(--shadow-soft)]">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
@@ -120,7 +108,7 @@ const Analytics = () => {
           </Card>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-6">
+        <div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
           <Card className="shadow-[var(--shadow-soft)]">
             <CardHeader>
               <CardTitle>Mood Trend</CardTitle>

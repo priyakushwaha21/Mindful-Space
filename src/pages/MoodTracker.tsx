@@ -3,11 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
-import { Heart, ArrowLeft } from "lucide-react";
+import { Heart } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
+import Navbar from "@/components/Navbar";
 
 const MoodTracker = () => {
   const { user, loading } = useAuth();
@@ -66,25 +67,12 @@ const MoodTracker = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to="/dashboard" className="flex items-center gap-2">
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-medium">Back to Dashboard</span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <Heart className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold">MindfulSpace</span>
-          </div>
-        </div>
-      </nav>
-
-      <div className="container mx-auto px-6 py-12 max-w-3xl">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">How are you feeling?</h1>
-          <p className="text-muted-foreground text-lg">Take a moment to check in with yourself</p>
+      <Navbar />
+      
+      <div className="pt-20 sm:pt-24 container mx-auto px-4 sm:px-6 py-8 sm:py-12 max-w-4xl">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2">How are you feeling?</h1>
+          <p className="text-muted-foreground text-base sm:text-lg">Take a moment to check in with yourself</p>
         </div>
 
         <Card className="shadow-[var(--shadow-glow)]">
@@ -93,18 +81,18 @@ const MoodTracker = () => {
             <CardDescription>Select the emotion that best describes how you feel right now</CardDescription>
           </CardHeader>
           <CardContent className="space-y-8">
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
               {moods.map((mood) => (
                 <button
                   key={mood.label}
                   onClick={() => setSelectedMood(mood.label)}
-                  className={`p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 ${
+                  className={`p-4 sm:p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 ${
                     selectedMood === mood.label
                       ? "border-primary shadow-[var(--shadow-glow)] bg-gradient-to-br " + mood.color + " bg-opacity-10"
                       : "border-border hover:border-primary/50"
                   }`}
                 >
-                  <div className="text-5xl mb-2">{mood.emoji}</div>
+                  <div className="text-4xl sm:text-5xl mb-2">{mood.emoji}</div>
                   <div className="text-sm font-medium">{mood.label}</div>
                 </button>
               ))}
