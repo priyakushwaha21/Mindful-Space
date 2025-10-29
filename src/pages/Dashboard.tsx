@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, BookOpen, MessageCircle, TrendingUp, Sparkles, LogOut, Wind, Brain, Activity, BarChart3 } from "lucide-react";
+import { Heart, BookOpen, MessageCircle, TrendingUp, Sparkles, LogOut, Wind, Brain, Activity, BarChart3, Shield } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
+import { MFASetup } from "@/components/MFASetup";
 
 const Dashboard = () => {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
+  const [showMFASetup, setShowMFASetup] = useState(false);
   const [recentMood, setRecentMood] = useState<any>(null);
   const [affirmation, setAffirmation] = useState("");
 
@@ -73,69 +75,79 @@ const Dashboard = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      <div className="pt-20 sm:pt-24 container mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <div className="mb-8 sm:mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Welcome back, {user.user_metadata?.full_name || "Friend"} {recentMood && getMoodEmoji(recentMood.mood_score)}
-          </h1>
-          <p className="text-muted-foreground text-base sm:text-lg">
-            {recentMood 
-              ? `Your last mood: ${recentMood.mood} (${recentMood.mood_score}/10)` 
-              : "How are you feeling today?"}
-          </p>
+      <div className="pt-20 sm:pt-24 container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 animate-in fade-in slide-in-from-top duration-700">
+          <div className="animate-in slide-in-from-left duration-700">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Welcome back, {user.user_metadata?.full_name || "Friend"} {recentMood && getMoodEmoji(recentMood.mood_score)}
+            </h1>
+            <p className="text-muted-foreground text-base sm:text-lg">
+              {recentMood 
+                ? `Your last mood: ${recentMood.mood} (${recentMood.mood_score}/10)` 
+                : "How are you feeling today?"}
+            </p>
+          </div>
+          <div className="flex gap-2 animate-in slide-in-from-right duration-700">
+            <Button 
+              variant="outline" 
+              size="icon"
+              onClick={() => setShowMFASetup(!showMFASetup)}
+              className="hover:scale-110 transition-all duration-300"
+            >
+              <Shield className="w-4 h-4" />
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={signOut}
+              className="hover:scale-105 transition-all duration-300"
+            >
+              Sign Out
+            </Button>
+          </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
-          <Card className="shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-1 cursor-pointer">
-            <CardHeader>
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center mb-4">
-                <Heart className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <CardTitle>Log Mood</CardTitle>
-              <CardDescription>Track how you're feeling</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link to="/mood">
-                <Button variant="calm" className="w-full">
-                  Add Entry
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+        {showMFASetup && (
+          <div className="mb-8 animate-in fade-in slide-in-from-top duration-500">
+            <MFASetup onComplete={() => setShowMFASetup(false)} />
+          </div>
+        )}
 
-          <Card className="shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-1 cursor-pointer">
-            <CardHeader>
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center mb-4">
-                <BookOpen className="w-6 h-6 text-secondary-foreground" />
-              </div>
-              <CardTitle>Write Journal</CardTitle>
-              <CardDescription>Express your thoughts</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link to="/journal">
-                <Button variant="calm" className="w-full">
-                  Start Writing
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
+          <Link to="/mood">
+            <Card className="cursor-pointer hover:shadow-[var(--shadow-hover)] transition-all duration-500 hover:-translate-y-2 hover:scale-105 animate-in fade-in slide-in-from-left duration-700" style={{ animationDelay: '100ms' }}>
+              <CardHeader>
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center mb-4 shadow-lg hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:scale-110 hover:rotate-12">
+                  <Heart className="w-6 h-6 text-primary-foreground" />
+                </div>
+                <CardTitle className="text-foreground">Log Mood</CardTitle>
+                <CardDescription>Track how you're feeling</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
 
-          <Card className="shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-1 cursor-pointer">
-            <CardHeader>
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center mb-4">
-                <MessageCircle className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <CardTitle>Chat Companion</CardTitle>
-              <CardDescription>Talk with your AI friend</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link to="/chat">
-                <Button variant="calm" className="w-full">
-                  Start Chat
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+          <Link to="/journal">
+            <Card className="cursor-pointer hover:shadow-[var(--shadow-hover)] transition-all duration-500 hover:-translate-y-2 hover:scale-105 animate-in fade-in slide-in-from-bottom duration-700" style={{ animationDelay: '200ms' }}>
+              <CardHeader>
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center mb-4 shadow-lg hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:scale-110 hover:rotate-12">
+                  <BookOpen className="w-6 h-6 text-secondary-foreground" />
+                </div>
+                <CardTitle className="text-foreground">Write Journal</CardTitle>
+                <CardDescription>Express your thoughts</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+
+          <Link to="/chat">
+            <Card className="cursor-pointer hover:shadow-[var(--shadow-hover)] transition-all duration-500 hover:-translate-y-2 hover:scale-105 animate-in fade-in slide-in-from-right duration-700" style={{ animationDelay: '300ms' }}>
+              <CardHeader>
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center mb-4 shadow-lg hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:scale-110 hover:rotate-12">
+                  <MessageCircle className="w-6 h-6 text-primary-foreground" />
+                </div>
+                <CardTitle className="text-foreground">Chat Companion</CardTitle>
+                <CardDescription>Talk with your AI friend</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 mb-6">

@@ -85,16 +85,16 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-      <div className="w-full max-w-md">
-        <Link to="/" className="flex items-center justify-center gap-2 mb-8">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-            <Heart className="w-6 h-6 text-primary-foreground" />
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 bg-gradient-to-br from-primary/10 via-background to-secondary/10 animate-in fade-in duration-700">
+      <div className="w-full max-w-md animate-in zoom-in slide-in-from-bottom duration-700">
+        <Link to="/" className="flex items-center justify-center gap-2 mb-8 group">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg group-hover:shadow-[var(--shadow-glow)] transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 animate-in zoom-in duration-500">
+            <Heart className="w-6 h-6 text-primary-foreground group-hover:animate-pulse" />
           </div>
-          <span className="text-2xl font-bold">MindfulSpace</span>
+          <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-in slide-in-from-left duration-500" style={{ animationDelay: '200ms' }}>Mindful Space</span>
         </Link>
 
-        <Card className="shadow-[var(--shadow-glow)] border-border/50">
+        <Card className="shadow-[var(--shadow-glow)] border-border/50 hover:shadow-[var(--shadow-hover)] transition-all duration-500 animate-in fade-in slide-in-from-bottom" style={{ animationDelay: '300ms' }}>
           <CardHeader className="text-center">
             <CardTitle className="text-3xl">Welcome</CardTitle>
             <CardDescription>Your journey to wellness starts here</CardDescription>

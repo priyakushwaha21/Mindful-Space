@@ -28,22 +28,22 @@ const Landing = () => {
               <span className="text-sm text-muted-foreground">Your personal wellness companion</span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-primary">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-primary animate-in zoom-in duration-1000">
               Find Peace Within
             </h1>
             
-            <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom duration-1000 px-4" style={{ animationDelay: '200ms' }}>
               Your safe space for emotional wellness. Track your mood, journal your thoughts, 
               and chat with an empathetic AI companion.
             </p>
             
-            <div className="flex gap-4 justify-center flex-wrap">
+            <div className="flex gap-4 justify-center flex-wrap animate-in fade-in slide-in-from-bottom duration-1000 px-4" style={{ animationDelay: '400ms' }}>
               <Link to="/auth">
-                <Button variant="hero" size="lg">
+                <Button variant="hero" size="lg" className="hover:scale-110 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-[var(--shadow-glow)]">
                   Start Your Journey
                 </Button>
               </Link>
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" className="hover:scale-110 hover:-translate-y-1 transition-all duration-300">
                 Learn More
               </Button>
             </div>
@@ -58,33 +58,33 @@ const Landing = () => {
             Nurture Your Mental Wellbeing
           </h2>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-card rounded-2xl p-8 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-1">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center mb-6">
+          <div className="grid md:grid-cols-3 gap-8 px-4">
+            <div className="bg-card rounded-2xl p-8 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-hover)] transition-all duration-500 hover:-translate-y-2 hover:scale-105 animate-in fade-in slide-in-from-left duration-700" style={{ animationDelay: '100ms' }}>
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center mb-6 shadow-lg hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:scale-110 hover:rotate-12">
                 <Heart className="w-8 h-8 text-primary-foreground" />
               </div>
-              <h3 className="text-2xl font-semibold mb-4">Mood Tracking</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-2xl font-semibold mb-4 text-foreground">Mood Tracking</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Log your daily emotions and discover patterns in your mental wellness journey.
               </p>
             </div>
             
-            <div className="bg-card rounded-2xl p-8 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-1">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center mb-6">
+            <div className="bg-card rounded-2xl p-8 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-hover)] transition-all duration-500 hover:-translate-y-2 hover:scale-105 animate-in fade-in slide-in-from-bottom duration-700" style={{ animationDelay: '200ms' }}>
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center mb-6 shadow-lg hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:scale-110 hover:rotate-12">
                 <BookOpen className="w-8 h-8 text-secondary-foreground" />
               </div>
-              <h3 className="text-2xl font-semibold mb-4">Reflective Journaling</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-2xl font-semibold mb-4 text-foreground">Reflective Journaling</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Express your thoughts freely in a private, judgment-free space.
               </p>
             </div>
             
-            <div className="bg-card rounded-2xl p-8 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-1">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center mb-6">
+            <div className="bg-card rounded-2xl p-8 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-hover)] transition-all duration-500 hover:-translate-y-2 hover:scale-105 animate-in fade-in slide-in-from-right duration-700" style={{ animationDelay: '300ms' }}>
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center mb-6 shadow-lg hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:scale-110 hover:rotate-12">
                 <MessageCircle className="w-8 h-8 text-primary-foreground" />
               </div>
-              <h3 className="text-2xl font-semibold mb-4">AI Companion</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-2xl font-semibold mb-4 text-foreground">AI Companion</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Chat with an empathetic AI that listens and provides thoughtful guidance.
               </p>
             </div>
@@ -93,14 +93,14 @@ const Landing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6 bg-gradient-to-br from-primary/10 to-secondary/10">
+      <section className="py-24 px-6 bg-gradient-to-br from-primary/10 to-secondary/10 animate-in fade-in duration-1000">
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Begin?</h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-foreground animate-in zoom-in duration-700">Ready to Begin?</h2>
+          <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom duration-700 px-4" style={{ animationDelay: '200ms' }}>
             Join thousands finding peace and clarity through mindful self-care.
           </p>
           <Link to="/auth">
-            <Button variant="hero" size="lg">
+            <Button variant="hero" size="lg" className="hover:scale-110 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-[var(--shadow-glow)] animate-in zoom-in duration-700" style={{ animationDelay: '400ms' }}>
               Get Started Free
             </Button>
           </Link>
