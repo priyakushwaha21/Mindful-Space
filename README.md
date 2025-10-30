@@ -1,6 +1,6 @@
 ## Deployed in:
 
-Vercel link: https://mindful-space-five.vercel.app
+Vercel link: https://mindful-space-priya.vercel.app
 
 
 ## What technologies are used for this project?
